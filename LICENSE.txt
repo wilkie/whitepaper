@@ -1,4 +1,4 @@
-Copyright (c) 2013 wilkie
+Copyright (c) 2013 wilkie (Dave Wilkinson II)
 
 MIT License
 
