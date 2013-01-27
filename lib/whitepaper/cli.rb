@@ -9,6 +9,7 @@ module Whitepaper
 
     class << self
       def parse_options
+        options = {}
         @opts = OptionParser.new do |opts|
           opts.banner = BANNER.gsub(/^    /, '')
 
@@ -20,32 +21,60 @@ module Whitepaper
             exit 0
           end
 
-          opts.on('-f', '--find KEYWORDS', 'Display the data for the paper with the given KEYWORDS') do |title|
-            puts Whitepaper.find_by_title(title)
-
-            exit 0
+          opts.on('-t', '--by-title KEYWORDS', 'Display the data for the paper with the given KEYWORDS in title') do |title|
+            options[:by_title] = title
           end
           
-          opts.on('-d', '--download KEYWORDS', 'Downloads a pdf of the paper with the given KEYWORDS') do |title|
-            Whitepaper.download_pdf_by_title(title)
-
-            exit 0
+          opts.on('-d', '--download', 'Downloads a pdf of the paper of the paper found') do 
+            options[:download] = true
           end
 
-          opts.on('-p', '--pdf KEYWORDS', 'Display a link to the pdf for the given KEYWORDS') do |title|
-            puts Whitepaper.find_pdfs_by_title(title).first
-
-            exit 0
+          opts.on('-p', '--pdf', 'Display a link to the pdf of the paper found') do
+            options[:print_pdf_url] = true
           end
 
-          opts.on('-n', '--name KEYWORDS', 'Display the title of the paper found with the given KEYWORDS') do |title|
-            puts Whitepaper.find_title_by_title(title)
-
-            exit 0
+          opts.on('-n', '--name', 'Display the title of the paper found') do
+            options[:print_title] = true
           end
+
+          opts.on('-a', '--authors', 'Display the authors of the paper found') do
+            options[:print_authors] = true
+          end
+
         end
 
         @opts.parse!
+
+        if options[:by_title]
+          paper = Whitepaper.find_by_title(options[:by_title])
+
+          if options[:print_title]
+            puts paper.title
+          end
+
+          if options[:print_authors]
+            puts paper.authors
+          end
+
+          if options[:print_pdf_url]
+            unless paper.pdf_urls.empty?
+              puts paper.pdf_urls.first
+            end
+          end
+
+          unless options[:print_title] or
+                 options[:print_authors] or
+                 options[:print_pdf_url]
+            puts paper
+          end
+
+          if options[:download] and not paper.pdf_urls.empty?
+            puts "Downloading: " + paper.pdf_urls.first
+            paper.download
+          end
+        else
+          puts opts
+        end
       end
 
       def CLI.run

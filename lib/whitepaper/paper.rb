@@ -22,6 +22,34 @@ module Whitepaper
       @ps_urls = options[:ps_urls] || []
     end
 
+    def download(filename = nil)
+      if filename.nil?
+        filename = title.to_s
+      end
+      escaped_filename = filename.gsub(/[\t:\?\<\>\*\"\\\/]/, "") + ".pdf"
+
+      f = open(escaped_filename, "w+")
+
+      if pdf_urls.empty?
+        return false
+      end
+
+      uri = URI.parse(pdf_urls.first)
+      begin
+        Net::HTTP.start(uri.host, uri.port) do |http|
+          http.request_get(uri.request_uri) do |resp|
+            resp.read_body do |segment|
+              f.write(segment)
+            end
+          end
+        end
+      ensure
+        f.close()
+      end
+
+      true
+    end
+
     def to_s
       "Title:       #{@title}\n" +
       "Authors:     #{@authors}\n" +

@@ -50,25 +50,7 @@ module Whitepaper
 
     def download_pdf_by_title(title)
       paper = find_by_title(title)
-
-      escaped_filename = paper.title.to_s.gsub(/[\t:\?\<\>\*\"\\\/]/, "") + ".pdf"
-
-      if paper
-        f = open(escaped_filename, "w+")
-        uri = URI.parse(paper.pdf_urls.first)
-        puts "Downloading: #{paper.pdf_urls.first}"
-        begin
-          Net::HTTP.start(uri.host, uri.port) do |http|
-            http.request_get(uri.request_uri) do |resp|
-              resp.read_body do |segment|
-                f.write(segment)
-              end
-            end
-          end
-        ensure
-          f.close()
-        end
-      end
+      paper.download
     end
   end
 end
