@@ -69,7 +69,7 @@ And require it if necessary: (Your project may auto require libraries in your Ge
 
 Invoke with this simple command to look up a paper with the given terms in the title:
 
-    paper = Whitepaper.find_by_title("hierarchial filesystems are dead")
+    paper = Whitepaper.find_by_title("hierarchical file systems are dead")
 
 This will give you back a Whitepaper::Paper object! To get a pdf url, just go:
 
