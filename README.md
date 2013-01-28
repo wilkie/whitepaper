@@ -1,10 +1,10 @@
 # Whitepaper
 
-This gem will perform a whitepaper lookup on major scholarly databases. It's purpose is to easily find
+This gem will perform a whitepaper lookup on major scholarly databases. Its purpose is to easily find
 related papers and organize your paper collection. With this application, you can easily download pdfs
 or use it as a library to automatically assign metadata.
 
-Currently, CiteSeerX, ACM and IEEE are the only databases it uses along with a
+Currently, CiteSeerX, ACM and IEEE are the only databases it uses, along with a
 google pdf/ps search to find other pdf or ps links to download.
 
 ## Installation
@@ -53,7 +53,7 @@ Printing the article's pdf url:
 Finally, you can simply have the app download an article and place it in the
 current directory. It will name the file as closely to the title as it can.
 
-Download a pdf by any means necessary by title keyword search:
+Download a PDF by any means necessary by title keyword search:
 
     whitepaper -d -t "The Design and Implementation of a Log-Structured File System"
 
