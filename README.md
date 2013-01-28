@@ -4,8 +4,8 @@ This gem will perform a whitepaper lookup on major scholarly databases. It's pur
 related papers and organize your paper collection. With this application, you can easily download pdfs
 or use it as a library to automatically assign metadata.
 
-Currently, CiteSeerX is the only database it uses along with a google pdf search if CiteSeerX does not
-list a pdf to download.
+Currently, CiteSeerX, ACM and IEEE are the only databases it uses along with a
+google pdf/ps search to find other pdf or ps links to download.
 
 ## Installation
 
@@ -21,7 +21,10 @@ Or install it yourself as:
 
     $ gem install whitepaper
 
-## Usage
+## Command-line Usage
+
+The command-line tool makes it easy to find metadata and download pdf copies of
+papers found via keyword search. It is really only designed for personal use.
 
 Display usage:
 
@@ -104,4 +107,4 @@ license. If this is unacceptable for you, please defer to the copyright holder.
 ### TODO
 
 1. Add new output options (JSON, YAML, etc) for better metadata usage by other programs.
-2. Add new engines (Google Scholar, IEEE, ACM, etc)
+2. Add new engines (Google Scholar, etc)
