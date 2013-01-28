@@ -4,15 +4,21 @@ require 'whitepaper/paper'
 
 module Whitepaper
   module Engine
+    # This engine uses the CiteSeerX database to query metadata about a paper.
     module CiteSeerX
+      # The domain to use for CiteSeerX.
       DOMAIN = "http://citeseerx.ist.psu.edu"
+
+      # The url to use to search by title.
       SEARCH_BY_TITLE_URL = "search?q=title%3A{title}&t=doc&sort=cite"
 
       class << self
+        # Returns a url that will query for the given title keywords.
         def find_by_title_url(title)
           "#{DOMAIN}/#{SEARCH_BY_TITLE_URL.gsub(/\{title\}/, title)}"
         end
 
+        # Returns a Whitespace::Paper by searching for the paper with the given title keywords.
         def find_by_title(title)
           @agent = Mechanize.new
           page = @agent.get "#{find_by_title_url(title)}"
@@ -25,25 +31,26 @@ module Whitepaper
           retrieve_details paper_link
         end
 
+        # Returns a Whitespace::Paper by reading the direct page for a particular paper.
         def retrieve_details(url)
           @agent = Mechanize.new
 
           page = @agent.get url
 
-          def get_meta(name, page)
+          get_meta = lambda {|name|
             meta = page.search "//meta[@name=\"#{name}\"]"
             if meta.nil? or meta.first.nil?
               return ""
             end
             meta.first.attribute "content"
-          end
+          }
 
-          description = get_meta("description", page)
-          keywords_raw = get_meta("keywords", page)
-          title = get_meta("citation_title", page)
-          authors_raw = get_meta("citation_authors", page)
-          year = get_meta("citation_year", page)
-          conference = get_meta("citation_conference", page)
+          description = get_meta.call("description")
+          keywords_raw = get_meta.call("keywords")
+          title = get_meta.call("citation_title")
+          authors_raw = get_meta.call("citation_authors")
+          year = get_meta.call("citation_year")
+          conference = get_meta.call("citation_conference")
 
           authors = authors_raw.to_s.split(',').map(&:strip)
           keywords = keywords_raw.to_s.split(',').map(&:strip)

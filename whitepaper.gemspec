@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Whitepaper::VERSION
   gem.authors       = ["wilkie"]
   gem.email         = ["wilkie05@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Finds metadata on scholarly works and is able to download pdfs of whitepapers.}
+  gem.summary       = %q{Finds whitepaper metadata and pdf download links with a basic keyword query using web-based databases such as Google and CiteSeerX.}
+  gem.homepage      = "https://github.com/wilkie/whitepaper"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

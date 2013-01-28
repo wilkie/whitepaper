@@ -4,8 +4,10 @@ require 'whitepaper/paper'
 
 module Whitepaper
   module Engine
+    # This engine simply uses a google filetype:pdf search to find paper information.
     module Google
       class << self
+        # Finds a Whitespace::Paper by looking up a paper with the given title keywords.
         def find_by_title(title)
           @agent = Mechanize.new
 

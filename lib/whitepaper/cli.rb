@@ -3,11 +3,14 @@ require 'optparse'
 require 'whitepaper'
 
 module Whitepaper
+  # The commandline interface to Whitespace.
   class CLI
+    # Usage banner
     BANNER = <<-USAGE
     USAGE
 
     class << self
+      # Parse and respond to the command line options.
       def parse_options
         options = {}
         @opts = OptionParser.new do |opts|
@@ -77,16 +80,12 @@ module Whitepaper
         end
       end
 
+      # Executes the command line version of whitespace.
       def CLI.run
         begin
           parse_options
         rescue OptionParser::InvalidOption => e
           warn e
-          exit -1
-        end
-
-        def fail
-          puts @opts
           exit -1
         end
 
