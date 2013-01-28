@@ -42,7 +42,7 @@ module Whitepaper
             if meta.nil? or meta.first.nil?
               return ""
             end
-            meta.first.attribute "content"
+            meta.first.attribute("content").to_s
           }
 
           description = get_meta.call("description")
@@ -60,32 +60,33 @@ module Whitepaper
 
           link_url = page.search '//ul[@id="clinks"]/li/a'
           link_url.each do |l|
-            url = "#{DOMAIN}#{l.attribute("href").to_s}"
-            if url.end_with? "pdf"
-              links << url
+            purl = "#{DOMAIN}#{l.attribute("href").to_s}"
+            if purl.end_with? "pdf"
+              links << purl
             end
-            if url.end_with? "ps"
-              ps_links << url
+            if purl.end_with? "ps"
+              ps_links << purl
             end
           end
 
           link_url = page.search '//ul[@id="dlinks"]/li/a'
           link_url.each do |l|
-            url = l.attribute("href").to_s
-            if url.end_with? "pdf"
-              links << url
+            purl = l.attribute("href").to_s
+            if purl.end_with? "pdf"
+              links << purl
             end
-            if url.end_with? "ps"
-              ps_links << url
+            if purl.end_with? "ps"
+              ps_links << purl
             end
           end
 
-          Paper.new title, authors, {:description => description,
-                                     :keywords    => keywords,
-                                     :year        => year,
-                                     :conference  => conference,
-                                     :pdf_urls    => links,
-                                     :ps_urls     => ps_links}
+          Paper.new title, authors, {:description  => description,
+                                     :keywords     => keywords,
+                                     :year         => year,
+                                     :conference   => conference,
+                                     :metadata_url => url,
+                                     :pdf_urls     => links,
+                                     :ps_urls      => ps_links}
         end
       end
     end

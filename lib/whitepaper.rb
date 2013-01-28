@@ -1,5 +1,6 @@
 require "whitepaper/version"
 
+require 'whitepaper/engine/acm'
 require 'whitepaper/engine/citeseerx'
 require 'whitepaper/engine/google'
 
@@ -12,7 +13,10 @@ module Whitepaper
   class << self
     # Find and return a Whitepaper::Paper by searching for a partial match with the given title.
     def find_by_title(title)
-      paper = Engine::CiteSeerX.find_by_title(title)
+      paper_csx = Engine::CiteSeerX.find_by_title(title)
+      paper_acm = Engine::ACM.find_by_title(title)
+
+      paper = [paper_csx, paper_acm].sort{|a,b| b.score_by_title(title) <=> a.score_by_title(title)}.first
 
       if paper.pdf_urls.empty?
         g = Engine::Google.find_by_title(title)
