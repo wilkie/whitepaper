@@ -52,9 +52,6 @@ module Whitepaper
           pdf_score = score(pdf[:title], title)
           ps_score  = score(ps[:title],  title)
 
-          puts pdf_score
-          puts ps_score
-
           if pdf and pdf_score >= ps_score
             pdf_urls << pdf[:url]
           end
