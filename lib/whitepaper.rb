@@ -19,18 +19,17 @@ module Whitepaper
 
       paper = [paper_csx, paper_i3e, paper_acm].sort{|a,b| b.score_by_title(title) <=> a.score_by_title(title)}.first
 
-      if paper.pdf_urls.empty?
-        g = Engine::Google.find_by_title(title)
+      # Gather pdf and ps links across the open internet
+      g = Engine::Google.find_by_title(title)
 
-        paper = Paper.new(paper.title,
-                          paper.authors,
-                          {:description => paper.description,
-                           :keywords => paper.keywords,
-                           :year => paper.year,
-                           :conference => paper.conference,
-                           :pdf_urls => g.pdf_urls,
-                           :ps_urls => paper.ps_urls})
-      end
+      paper = Paper.new(paper.title,
+                        paper.authors,
+                        {:description => paper.description,
+                         :keywords => paper.keywords,
+                         :year => paper.year,
+                         :conference => paper.conference,
+                         :pdf_urls => paper.pdf_urls.concat(g.pdf_urls),
+                         :ps_urls => paper.ps_urls.concat(g.ps_urls)})
 
       paper
     end
