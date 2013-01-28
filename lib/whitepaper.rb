@@ -15,8 +15,9 @@ module Whitepaper
     def find_by_title(title)
       paper_csx = Engine::CiteSeerX.find_by_title(title)
       paper_acm = Engine::ACM.find_by_title(title)
+      paper_i3e = Engine::ACM.find_by_title(title)
 
-      paper = [paper_csx, paper_acm].sort{|a,b| b.score_by_title(title) <=> a.score_by_title(title)}.first
+      paper = [paper_csx, paper_i3e, paper_acm].sort{|a,b| b.score_by_title(title) <=> a.score_by_title(title)}.first
 
       if paper.pdf_urls.empty?
         g = Engine::Google.find_by_title(title)
