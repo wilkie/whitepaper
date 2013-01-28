@@ -10,6 +10,7 @@ module Whitepaper
       # The url to use to search by title.
       SEARCH_BY_TITLE_URL2 = "results.cfm?within={title_query}&adv=1&DL=ACM&termzone=Title&allofem={title}"
 
+      # The alternate url to use to search by title.
       SEARCH_BY_TITLE_URL = "results.cfm?query={title}&querydisp={title}&srt=score%20dsc&short=0&coll=DL&dl=GUIDE&source_disp=&source_query=&since_month=&since_year=&before_month=&before_year=&termshow=matchall&range_query="
 
       class << self

@@ -2,8 +2,10 @@ module Whitepaper
   module Engine
     # This engine uses the IEEEXplore database to query metadata about a paper.
     module IEEEXplore
+      # The domain for IEEEXplore.
       DOMAIN = "http://ieeexplore.ieee.org"
 
+      # The url to use to search by title keywords.
       SEARCH_BY_TITLE_URL = "search/searchresult.jsp?reload=true&newsearch=true&queryText={title}&x=60&y=7"
 
       class << self
