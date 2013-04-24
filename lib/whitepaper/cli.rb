@@ -27,8 +27,8 @@ module Whitepaper
           opts.on('-t', '--by-title KEYWORDS', 'Display the data for the paper with the given KEYWORDS in title') do |title|
             options[:by_title] = title
           end
-          
-          opts.on('-d', '--download', 'Downloads a pdf of the paper of the paper found') do 
+
+          opts.on('-d', '--download', 'Downloads a pdf of the paper of the paper found') do
             options[:download] = true
           end
 
@@ -76,7 +76,7 @@ module Whitepaper
             paper.download
           end
         else
-          puts opts
+          puts @opts
         end
       end
 
