@@ -1,6 +1,7 @@
 require "whitepaper/version"
 
 require 'whitepaper/engine/acm'
+require 'whitepaper/engine/ieeexplore'
 require 'whitepaper/engine/citeseerx'
 require 'whitepaper/engine/google'
 

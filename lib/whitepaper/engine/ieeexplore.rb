@@ -58,7 +58,7 @@ module Whitepaper
           links = []
           ps_links = []
 
-          Paper.new title, authors, {:description  => description,
+          Paper.new title, authors, {:description  => "",
                                      :keywords     => keywords,
                                      :year         => year,
                                      :conference   => conference,
