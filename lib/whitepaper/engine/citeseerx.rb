@@ -26,6 +26,11 @@ module Whitepaper
           # get the first link
           paper = page.search '//div[@id="result_list"]/div[@class="result"]/h3/a'
 
+          if paper.empty?
+            # no results
+            return nil
+          end
+
           paper_link = "#{DOMAIN}#{paper.first.attribute("href")}"
 
           retrieve_details paper_link
